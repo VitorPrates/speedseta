@@ -14,10 +14,9 @@ unsigned char setas_formado[4] = {' ',' ',' ',' '};
 unsigned char setas_jogador[4] = {' ',' ',' ',' '};
 String score_time[3] = {"00.0","00.0","00.0"};
 unsigned int pos_score = 2;
-int pontos = -1;
+int pontos = 0;
 int pos = 0;
 bool new_frame = true;
-
 int igualdade = 0;
 
 // void setup_game_variaveis()
@@ -27,93 +26,47 @@ int igualdade = 0;
 //     tempo_corrente = 0;
 //     buffer[10];
 //     String score_time[3] = {"00.0","00.0","00.0"};
-//     pos_score = 2;
-//     pontos = 1;
+//     pos_score = 1;
+//     pontos = 0;
 //     pos = 0;
 //     new_frame = true;
-
 //     igualdade = 0;
 // }
+
 
 bool menu()
 {
     bool in_menu = true;
-    int cursor_pos = 0;
     while (in_menu)
     {
-        if(read_buttons() == "up")
+        String botao_lido = read_buttons();   
+        if(botao_lido == "b1")
         {
-            if(cursor_pos > 0)
-            {
-                cursor_pos--;
-            }
-        }
-        else if(read_buttons() == "down")
-        {
-            if(cursor_pos < 2)
-            {
-                cursor_pos++;
-            }
-        }
-        else if(read_buttons() == "left")
-        {
-            if(cursor_pos > 0)
-            {
-                cursor_pos--;
-            }
-        }
-        else if(read_buttons() == "right")
-        {
-            if(cursor_pos < 2)
-            {
-                cursor_pos++;
-            }
+            in_menu = false;
         }
         tela.clearBuffer();
         tela.drawFrame(0,0,128,16);
         tela.setFont(u8g_font_7x14);
-        tela.drawStr(2,13,"SpeedSeta!");
-        switch (cursor_pos)
-        {
-        case 0:
-            tela.drawStr(7,30,"Iniciar Jogo");
-            tela.drawStr(3,45,"Recordes");
-            tela.drawStr(3,60,"Sobre");
-            if(read_buttons() == "b1")
-            {
-                in_menu = false;
-            }
-            break;
-        case 1:
-            tela.drawStr(3,30,"Iniciar Jogo");
-            tela.drawStr(7,45,"Recordes");
-            tela.drawStr(3,60,"Sobre");   
-            break;
-        case 2:
-            tela.drawStr(3,30,"Iniciar Jogo");
-            tela.drawStr(3,45,"Recordes");
-            tela.drawStr(7,60,"Sobre");   
-            break;
-        
-        default:
-            break;
-        }
-        tela.setFont(u8g2_font_open_iconic_all_2x_t);
-        tela.drawGlyph(95,34+(15*cursor_pos),0x0075);
+        tela.drawStr(2,13,"SpeedSeta!    v0.1");
+        tela.setCursor(3,30+0 * 15);
+        tela.println("Iniciar jogo <");
+        tela.setCursor(0,50);
+        tela.print("Um projeto");
+        tela.setCursor(0,64);
+        tela.print("Randoom Colors!");
         tela.sendBuffer();
     }
-    tela.setFont(u8g_font_7x14);
     tela.clearDisplay();
 
-    tela.drawStr(10,32,"Iniciando.");
+    tela.drawStr(10,32,"Iniciando 3");
     tela.sendBuffer();
     delay(500);
 
-    tela.drawStr(10,32,"Iniciando..");
+    tela.drawStr(10,32,"Iniciando 2");
     tela.sendBuffer();
     delay(500);
 
-    tela.drawStr(10,32,"Iniciando...");
+    tela.drawStr(10,32,"Iniciando 1");
     tela.sendBuffer();
 
     delay(random(500,2500));
@@ -123,7 +76,6 @@ bool menu()
     delay(500);
     new_frame = true;
 }
-
 
 bool speed_seta()
 {
@@ -187,7 +139,6 @@ bool speed_seta()
             // pontos ++;
         }
 
-        
         if(read_buttons() == "up")
         {
             setas_jogador[pos] = 0x0077;
@@ -255,7 +206,6 @@ bool speed_seta()
         }
         if(read_buttons() == "b1")
         { 
-
             setup();
         }   
     }
